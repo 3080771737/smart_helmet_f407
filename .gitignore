@@ -1,0 +1,52 @@
+# Keil MDK-ARM
+*.uvguix.*
+*.uvoptx
+*.bak
+*.ddk
+*.edk
+*.lst
+*.lnp
+*.mpf
+*.mpj
+*.obj
+*.omf
+*.plg
+*.rpt
+*.tmp
+*.__i
+*._ia
+*.crf
+*.d
+*.o
+*.browse
+DebugConfig/
+RTE/
+Listings/
+Objects/
+
+# STM32CubeMX
+.mxproject
+
+# Build outputs
+*.axf
+*.bin
+*.elf
+*.hex
+*.map
+*.htm
+*.lnp
+*.sct
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
