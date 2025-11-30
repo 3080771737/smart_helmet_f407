@@ -1,0 +1,196 @@
+STM32智能安全帽项目 - 完整文件结构
+=====================================
+
+smart_helmet_f407/
+│
+├── 📄 README.md                           # 项目主文档（6000+字）
+├── 📄 LICENSE                             # MIT开源许可证
+├── 📄 .gitignore                          # Git忽略规则
+├── 📄 smart_helmet_f407.ioc               # STM32CubeMX配置文件
+│
+├── 📄 GitHub推送指南.md                    # GitHub推送详细教程
+├── 📄 如何推送到GitHub.md                  # 推送快速指南（新）
+├── 📄 push_to_github.sh                   # Linux/Mac推送脚本（新）
+├── 📄 push_to_github.bat                  # Windows推送脚本（新）
+│
+├── 📄 开发完成总结.md                      # 工作总结
+├── 📄 工程配置指南.md                      # 工程配置说明
+├── 📄 项目进度记录.md                      # 进度跟踪
+├── 📄 断点续传-20251130_220132.md         # 断点续传记录（7000+字）
+├── 📄 当前运行路径说明.md                  # 路径导航
+├── 📄 完成报告.txt                        # 阶段完成报告
+├── 📄 最终状态.txt                        # 最终保存状态
+├── 📄 项目结构.txt                        # 本文件（新）
+│
+├── 📁 docs/                               # 📚 文档文件夹
+│   ├── 01-开发流程文档.md                  # 15000字，完整开发流程
+│   ├── 02-硬件连接文档.md                  # 10000字，硬件接线指南
+│   ├── 03-面试问答宝典.md                  # 8000字，面试准备资料
+│   └── 04-用户使用手册.md                  # 12000字，用户操作手册
+│
+├── 📁 APP/                                # 💻 应用层代码
+│   ├── scheduler.c                        # 任务调度器实现
+│   ├── scheduler.h                        # 任务调度器头文件
+│   ├── test_task.c                        # LED测试任务
+│   ├── test_task.h                        # LED测试任务头文件
+│   ├── aht20.c                            # AHT20温湿度传感器驱动
+│   ├── aht20.h                            # AHT20头文件
+│   ├── icm20608.c                         # ICM-20608-G姿态传感器驱动
+│   └── icm20608.h                         # ICM20608头文件
+│
+├── 📁 Core/                               # 🔧 STM32 HAL核心代码
+│   ├── Inc/                               # 头文件目录
+│   │   ├── main.h                         # 主程序头文件
+│   │   ├── adc.h                          # ADC外设头文件
+│   │   ├── gpio.h                         # GPIO外设头文件
+│   │   ├── i2c.h                          # I2C外设头文件
+│   │   ├── sdio.h                         # SDIO外设头文件
+│   │   ├── spi.h                          # SPI外设头文件
+│   │   ├── tim.h                          # TIM定时器头文件
+│   │   ├── usart.h                        # USART串口头文件
+│   │   ├── stm32f4xx_hal_conf.h           # HAL库配置
+│   │   └── stm32f4xx_it.h                 # 中断服务程序头文件
+│   │
+│   └── Src/                               # 源文件目录
+│       ├── main.c                         # 主程序入口（⭐核心）
+│       ├── adc.c                          # ADC外设初始化
+│       ├── gpio.c                         # GPIO外设初始化
+│       ├── i2c.c                          # I2C外设初始化
+│       ├── sdio.c                         # SDIO外设初始化
+│       ├── spi.c                          # SPI外设初始化
+│       ├── tim.c                          # TIM定时器初始化
+│       ├── usart.c                        # USART串口初始化
+│       ├── stm32f4xx_hal_msp.c            # HAL MSP回调函数
+│       ├── stm32f4xx_it.c                 # 中断服务程序实现
+│       └── system_stm32f4xx.c             # 系统时钟配置
+│
+├── 📁 Drivers/                            # 📚 STM32驱动库
+│   ├── CMSIS/                             # ARM CMSIS核心
+│   │   ├── Device/ST/STM32F4xx/           # STM32F4设备支持
+│   │   │   ├── Include/
+│   │   │   │   ├── stm32f407xx.h          # F407寄存器定义
+│   │   │   │   ├── stm32f4xx.h            # F4系列通用头文件
+│   │   │   │   └── system_stm32f4xx.h     # 系统配置头文件
+│   │   │   └── LICENSE.txt                # ST许可证
+│   │   │
+│   │   ├── Include/                       # CMSIS核心头文件
+│   │   │   ├── core_cm4.h                 # Cortex-M4核心定义
+│   │   │   ├── cmsis_gcc.h                # GCC编译器支持
+│   │   │   ├── cmsis_version.h            # CMSIS版本信息
+│   │   │   └── ... (其他CMSIS文件)
+│   │   │
+│   │   └── LICENSE.txt                    # ARM许可证
+│   │
+│   └── STM32F4xx_HAL_Driver/              # STM32F4 HAL驱动库
+│       ├── Inc/                           # HAL库头文件
+│       │   ├── stm32f4xx_hal.h            # HAL库主头文件
+│       │   ├── stm32f4xx_hal_adc.h        # ADC驱动头文件
+│       │   ├── stm32f4xx_hal_gpio.h       # GPIO驱动头文件
+│       │   ├── stm32f4xx_hal_i2c.h        # I2C驱动头文件
+│       │   ├── stm32f4xx_hal_uart.h       # UART驱动头文件
+│       │   ├── stm32f4xx_hal_tim.h        # TIM驱动头文件
+│       │   └── ... (其他HAL头文件)
+│       │
+│       ├── Src/                           # HAL库源文件
+│       │   ├── stm32f4xx_hal.c            # HAL库主实现
+│       │   ├── stm32f4xx_hal_adc.c        # ADC驱动实现
+│       │   ├── stm32f4xx_hal_gpio.c       # GPIO驱动实现
+│       │   ├── stm32f4xx_hal_i2c.c        # I2C驱动实现
+│       │   ├── stm32f4xx_hal_uart.c       # UART驱动实现
+│       │   ├── stm32f4xx_hal_tim.c        # TIM驱动实现
+│       │   └── ... (其他HAL源文件)
+│       │
+│       └── LICENSE.txt                    # ST HAL库许可证
+│
+└── 📁 MDK-ARM/                            # 🔨 Keil工程文件夹
+    ├── smart_helmet_f407.uvprojx          # Keil工程文件（⭐核心）
+    ├── smart_helmet_f407.uvoptx           # Keil选项配置
+    ├── startup_stm32f407xx.s              # STM32F407启动文件
+    │
+    └── smart_helmet_f407/                 # 编译输出目录
+        └── smart_helmet_f407_smart_helmet_f407.dep
+
+=====================================
+文件统计
+=====================================
+
+总文件数: 273个
+总大小: 约2.5MB
+Git提交: 12次
+
+文档文件: 14个 (68,000+字)
+代码文件: 150+个 (194,769行)
+配置文件: 4个
+
+=====================================
+关键文件说明
+=====================================
+
+【必读文档】
+  README.md                - 项目总览（⭐入口）
+  docs/01-开发流程文档.md   - 开发教程（⭐重要）
+  docs/02-硬件连接文档.md   - 接线指南（⭐重要）
+  如何推送到GitHub.md      - 推送教程（⭐新手友好）
+
+【代码核心】
+  APP/scheduler.c          - 任务调度器（⭐核心逻辑）
+  Core/Src/main.c          - 主程序（⭐入口点）
+  APP/aht20.c              - 温湿度驱动（⭐板载）
+  APP/icm20608.c           - 姿态驱动（⭐板载）
+
+【配置文件】
+  smart_helmet_f407.ioc    - CubeMX配置（⭐硬件配置）
+  .gitignore               - Git忽略规则
+  LICENSE                  - MIT许可证
+
+【断点续传】
+  断点续传-20251130_220132.md - 详细进度记录（⭐恢复必看）
+  最终状态.txt              - 快速状态总览
+  完成报告.txt              - 阶段性报告
+
+【推送工具】
+  push_to_github.sh        - Linux/Mac推送脚本
+  push_to_github.bat       - Windows推送脚本
+  如何推送到GitHub.md       - 推送使用说明
+
+=====================================
+开发阶段
+=====================================
+
+✅ 已完成（45%）:
+  - 文档创建（100%）
+  - CubeMX配置（100%）
+  - APP框架（100%）
+  - 板载驱动（100%）
+  - HAL库集成（100%）
+  - Git版本控制（100%）
+  - GitHub准备（100%）
+
+⏳ 待开发（55%）:
+  - 外接传感器驱动（0%）
+    * MAX30102心率血氧
+    * MQ2烟雾传感器
+    * ATGM336H GPS
+    * ESP01S WiFi
+    * ASR-PRO语音
+  - 算法优化（0%）
+  - 系统集成（0%）
+  - 硬件测试（0%）
+
+=====================================
+下一步建议
+=====================================
+
+1. 推送到GitHub（5分钟）
+   → 使用 push_to_github.bat 或 push_to_github.sh
+
+2. 继续开发传感器驱动（1-2天）
+   → 参考 docs/01-开发流程文档.md
+
+3. 硬件连接测试（半天）
+   → 参考 docs/02-硬件连接文档.md
+
+=====================================
+文档生成时间: 2025-01-30 22:05
+项目版本: v0.45 (45% complete)
+=====================================
