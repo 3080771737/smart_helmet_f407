@@ -176,6 +176,7 @@ https://github.com/<你的用户名>/smart_helmet_f407
 ### 2. 完善仓库信息
 
 #### 添加描述（About）
+
 - 点击仓库右侧 ⚙️ 图标
 - Description: `基于STM32F407VET6的工业级智能安全帽监测系统`
 - Website: 可以留空或填个人网站
