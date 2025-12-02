@@ -29,6 +29,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "scheduler.h"
+#include "max30102.h"
+#include "mq2.h"
+#include "atgm336h.h"
+#include "esp01s.h"
+#include "asr_pro.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -98,8 +103,46 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM1_Init();
   MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  // 启动TIM1用于软件I2C时序
+  HAL_TIM_Base_Start(&htim1);
+
+  // 初始化调度器
   scheduler_init();
+
+  // 初始化所有传感器模块
+  printf("\r\n========================================\r\n");
+  printf("STM32智能安全帽系统启动\r\n");
+  printf("========================================\r\n");
+
+  // 1. MAX30102心率血氧传感器
+  MAX30102_Init();
+  scheduler_add_task(max30102_task, 200);  // 200ms采集一次
+
+  // 2. MQ2烟雾传感器
+  MQ2_Init();
+  scheduler_add_task(mq2_task, 500);  // 500ms检测一次
+
+  // 3. ATGM336H GPS模块
+  GPS_Init();
+  scheduler_add_task(gps_task, 1000);  // 1000ms更新一次
+
+  // 4. ESP01S WiFi模块
+  ESP_Init();
+  ESP_Connect_WiFi();
+  ESP_Connect_MQTT();
+  scheduler_add_task(esp_task, 5000);  // 5000ms上传一次数据
+
+  // 5. ASR-PRO语音模块
+  ASR_Init();
+  scheduler_add_task(asr_task, 1000);  // 1000ms轮询一次
+
+  printf("所有模块初始化完成！\r\n");
+  printf("========================================\r\n\r\n");
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -160,6 +203,16 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/**
+ * @brief UART接收中断回调函数
+ * @param huart: UART句柄指针
+ */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    // GPS模块接收回调（UART2）
+    GPS_UART_RxCpltCallback(huart);
+}
 
 /* USER CODE END 4 */
 
