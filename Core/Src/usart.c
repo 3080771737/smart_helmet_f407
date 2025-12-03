@@ -262,4 +262,24 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
 /* USER CODE BEGIN 1 */
 
+#include <stdio.h>
+
+/**
+ * @brief printf重定向到ITM（用于DAP SWO输出）
+ * @note 不占用任何UART，ASR-PRO可以独占UART1
+ */
+int fputc(int ch, FILE *f)
+{
+    ITM_SendChar(ch);
+    return ch;
+}
+
+/**
+ * @brief getchar重定向（可选）
+ */
+int fgetc(FILE *f)
+{
+    return 0;
+}
+
 /* USER CODE END 1 */
