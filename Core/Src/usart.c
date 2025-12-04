@@ -265,12 +265,12 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 #include <stdio.h>
 
 /**
- * @brief printf重定向到ITM（用于DAP SWO输出）
- * @note 不占用任何UART，ASR-PRO可以独占UART1
+ * @brief printf重定向到UART1（用于DAPLink虚拟串口输出）
+ * @note DAPLink的TX/RX连接到PA9/PA10，可以通过USB虚拟串口查看数据
  */
 int fputc(int ch, FILE *f)
 {
-    ITM_SendChar(ch);
+    HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
     return ch;
 }
 
@@ -279,7 +279,9 @@ int fputc(int ch, FILE *f)
  */
 int fgetc(FILE *f)
 {
-    return 0;
+    uint8_t ch;
+    HAL_UART_Receive(&huart1, &ch, 1, HAL_MAX_DELAY);
+    return ch;
 }
 
 /* USER CODE END 1 */
